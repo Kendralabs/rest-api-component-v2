@@ -15,6 +15,7 @@
         "node": "14"
     },
     "dependencies": {
+        "@openintegrationhub/ferryman": "^1.1.5",
         "@elastic.io/component-commons-library": "1.1.5",
         "axios": "0.21.0",
         "duplex": "1.0.0",
