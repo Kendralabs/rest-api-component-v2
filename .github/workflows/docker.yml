@@ -1,25 +1,22 @@
 name: Docker Image CI
 
-on:
-  push:
-    branches: [ master ]
+on: [push]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Login to docker
+    - name: docker login
       env:
-        DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}   
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}  
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: Build the Docker image
+    - name: docker build csharp
       run: |
-        docker build . -t ${{ secrets.DOCKER_HUB_REPOSITORY }}:latest
-    - name: Push the Docker image
+        docker build . -t ${{ secrets.DOCKER_HUB_REPOSITORY }}
+    - name: docker push
       run: |
-	docker push ${{ secrets.DOCKER_HUB_REPOSITORY }}:latest
+        docker push ${{ secrets.DOCKER_HUB_REPOSITORY }}
+        
