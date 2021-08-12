@@ -2,6 +2,7 @@
     "name": "@elasticio/rest-api-component-v2",
     "description": "REST API component v2",
     "scripts": {
+        "start": "node ./node_modules/ferryman/runGlobal.js",
         "pretest": "eslint lib test verifyCredentials.js --fix",
         "test": "mocha test/**/*.spec.js --timeout 10000"
     },
