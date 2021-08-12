@@ -7,13 +7,19 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    - name: Login to docker
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker image
       run: |
-        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
-        docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_REPOSITORY }}:latest
-        docker push ${{ secrets.DOCKER_HUB_REPOSITORY }}:$GITHUB_SHA
+        docker build . -t ${{ secrets.DOCKER_HUB_REPOSITORY }}:latest
+    - name: Push the Docker image
+      run: |
+		        docker push ${{ secrets.DOCKER_HUB_REPOSITORY }}
