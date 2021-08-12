@@ -16,5 +16,4 @@ COPY . /usr/src/app
 RUN chown -R node:node .
 
 USER node
-
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["node", "./node_modules/@openintegrationhub/ferryman/runGlobal.js"]
